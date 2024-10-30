@@ -48,7 +48,7 @@ export async function getPage(url: string) {
 
   let baseURL = region === 'EU' ? 'eu-graphql.contentstack.com' : 'graphql.contentstack.com'
 
-  if (preview === 'true') {
+  if (preview === 'true' && hash) {
     baseURL = region === 'EU' ? 'eu-graphql-preview.contentstack.com' : 'graphql-preview.contentstack.com'
   }
 

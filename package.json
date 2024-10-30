@@ -1,6 +1,6 @@
 {
   "name": "contentstack-implementation-guide-next-graphql",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": false,
   "repository": {
     "type": "git",
@@ -21,21 +21,21 @@
     "@contentstack/delivery-sdk": "^4.3.0",
     "@contentstack/live-preview-utils": "^2.0.4",
     "@graphql-codegen/cli": "^5.0.3",
-    "@graphql-codegen/client-preset": "^4.4.0",
-    "@graphql-codegen/typescript": "^4.1.0",
+    "@graphql-codegen/client-preset": "^4.5.0",
+    "@graphql-codegen/typescript": "^4.1.1",
     "graphql-request": "^7.1.0",
-    "next": "14.2.14",
+    "next": "14.2.16",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@types/node": "^22.5.5",
-    "@types/react": "^18.3.7",
-    "@types/react-dom": "^18.3.0",
+    "@types/node": "^22.8.4",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
     "eslint": "^8.57.1",
-    "eslint-config-next": "14.2.12",
+    "eslint-config-next": "14.2.16",
     "postcss": "^8.4.47",
-    "tailwindcss": "^3.4.12",
-    "typescript": "^5.6.2"
+    "tailwindcss": "^3.4.14",
+    "typescript": "^5.6.3"
   }
 }

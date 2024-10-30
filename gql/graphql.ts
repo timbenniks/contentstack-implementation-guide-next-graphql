@@ -20,6 +20,50 @@ export type Scalars = {
   JSON: { input: any; output: any; }
 };
 
+export type AllPage = {
+  __typename?: 'AllPage';
+  items?: Maybe<Array<Maybe<Page>>>;
+  total?: Maybe<Scalars['Int']['output']>;
+};
+
+export type AllSysAsset = {
+  __typename?: 'AllSysAsset';
+  items?: Maybe<Array<Maybe<SysAsset>>>;
+  total?: Maybe<Scalars['Int']['output']>;
+};
+
+export type EntrySystemField = {
+  __typename?: 'EntrySystemField';
+  branch?: Maybe<Scalars['String']['output']>;
+  content_type_uid?: Maybe<Scalars['String']['output']>;
+  created_at?: Maybe<Scalars['DateTime']['output']>;
+  created_by?: Maybe<Scalars['String']['output']>;
+  extensionConnection?: Maybe<SysExtensionConnection>;
+  locale?: Maybe<Scalars['String']['output']>;
+  publish_details?: Maybe<SystemPublishDetails>;
+  tags?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  uid?: Maybe<Scalars['String']['output']>;
+  updated_at?: Maybe<Scalars['DateTime']['output']>;
+  updated_by?: Maybe<Scalars['String']['output']>;
+  version?: Maybe<Scalars['Int']['output']>;
+};
+
+
+export type EntrySystemFieldExtensionConnectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type Page = {
+  __typename?: 'Page';
+  description?: Maybe<Scalars['String']['output']>;
+  imageConnection?: Maybe<SysAssetConnection>;
+  rich_text?: Maybe<Scalars['String']['output']>;
+  system?: Maybe<EntrySystemField>;
+  title?: Maybe<Scalars['String']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
+};
+
 export enum PageOrderBy {
   CreatedAtAsc = 'created_at_ASC',
   CreatedAtDesc = 'created_at_DESC',
@@ -99,10 +143,84 @@ export type PageWhere = {
   version_nin?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
 };
 
+export type Query = {
+  __typename?: 'Query';
+  all_assets?: Maybe<AllSysAsset>;
+  all_page?: Maybe<AllPage>;
+  assets?: Maybe<SysAsset>;
+  page?: Maybe<Page>;
+};
+
+
+export type QueryAll_AssetsArgs = {
+  fallback_locale?: InputMaybe<Scalars['Boolean']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order_by?: InputMaybe<Array<InputMaybe<SysAssetOrderBy>>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<SysAssetWhere>;
+};
+
+
+export type QueryAll_PageArgs = {
+  fallback_locale?: InputMaybe<Scalars['Boolean']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: Scalars['String']['input'];
+  order_by?: InputMaybe<Array<InputMaybe<PageOrderBy>>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<PageWhere>;
+};
+
+
+export type QueryAssetsArgs = {
+  fallback_locale?: InputMaybe<Scalars['Boolean']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  uid: Scalars['String']['input'];
+};
+
+
+export type QueryPageArgs = {
+  fallback_locale?: InputMaybe<Scalars['Boolean']['input']>;
+  locale?: Scalars['String']['input'];
+  uid: Scalars['String']['input'];
+};
+
+export type SysAsset = {
+  __typename?: 'SysAsset';
+  content_type?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  dimension?: Maybe<SysAssetDimension>;
+  file_size?: Maybe<Scalars['Int']['output']>;
+  filename?: Maybe<Scalars['String']['output']>;
+  metadata?: Maybe<Scalars['JSON']['output']>;
+  permanent_url?: Maybe<Scalars['String']['output']>;
+  system?: Maybe<SysAssetSystemField>;
+  title?: Maybe<Scalars['String']['output']>;
+  unique_identifier?: Maybe<Scalars['String']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type SysAssetUrlArgs = {
+  transform?: InputMaybe<SysAssetTransformUrl>;
+};
+
 /** WEBP images are usually lower in size and have good quality. */
 export enum SysAssetAutoValues {
   Webp = 'WEBP'
 }
+
+export type SysAssetConnection = {
+  __typename?: 'SysAssetConnection';
+  edges?: Maybe<Array<Maybe<SysAssetEdge>>>;
+  totalCount?: Maybe<Scalars['Int']['output']>;
+};
+
+export type SysAssetDimension = {
+  __typename?: 'SysAssetDimension';
+  height?: Maybe<Scalars['Int']['output']>;
+  width?: Maybe<Scalars['Int']['output']>;
+};
 
 export type SysAssetDimensionWhere = {
   height?: InputMaybe<Scalars['Int']['input']>;
@@ -137,6 +255,11 @@ export enum SysAssetDispositionValues {
   /** Allows an image to be rendered on page */
   Inline = 'INLINE'
 }
+
+export type SysAssetEdge = {
+  __typename?: 'SysAssetEdge';
+  node?: Maybe<SysAsset>;
+};
 
 export enum SysAssetFitValues {
   Bounds = 'BOUNDS',
@@ -206,6 +329,27 @@ export enum SysAssetOverlayRepeatValues {
   /** Vertical repetition */
   Y = 'Y'
 }
+
+export type SysAssetSystemField = {
+  __typename?: 'SysAssetSystemField';
+  branch?: Maybe<Scalars['String']['output']>;
+  content_type_uid?: Maybe<Scalars['String']['output']>;
+  created_at?: Maybe<Scalars['DateTime']['output']>;
+  created_by?: Maybe<Scalars['String']['output']>;
+  extensionConnection?: Maybe<SysExtensionConnection>;
+  publish_details?: Maybe<SystemPublishDetails>;
+  tags?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  uid?: Maybe<Scalars['String']['output']>;
+  updated_at?: Maybe<Scalars['DateTime']['output']>;
+  updated_by?: Maybe<Scalars['String']['output']>;
+  version?: Maybe<Scalars['Int']['output']>;
+};
+
+
+export type SysAssetSystemFieldExtensionConnectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+};
 
 export type SysAssetTransformUrl = {
   /** When the auto parameter is set to webp, it enables WebP image support. WebP images have higher compression rate with minimum loss of quality. */
@@ -299,6 +443,41 @@ export type SysAssetWhere = {
   url_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   url_ne?: InputMaybe<Scalars['String']['input']>;
   url_nin?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type SysExtensionConnection = {
+  __typename?: 'SysExtensionConnection';
+  edges?: Maybe<Array<Maybe<SysExtensionEdge>>>;
+  totalCount?: Maybe<Scalars['Int']['output']>;
+};
+
+export type SysExtensionEdge = {
+  __typename?: 'SysExtensionEdge';
+  node?: Maybe<SysMetadata>;
+};
+
+export type SysMetadata = {
+  __typename?: 'SysMetadata';
+  extension_uid?: Maybe<Scalars['String']['output']>;
+  metadata?: Maybe<Array<Maybe<Scalars['JSON']['output']>>>;
+};
+
+export type SysVariants = {
+  __typename?: 'SysVariants';
+  environment?: Maybe<Scalars['String']['output']>;
+  locale?: Maybe<Scalars['String']['output']>;
+  time?: Maybe<Scalars['DateTime']['output']>;
+  user?: Maybe<Scalars['String']['output']>;
+  variant_uid?: Maybe<Scalars['String']['output']>;
+};
+
+export type SystemPublishDetails = {
+  __typename?: 'SystemPublishDetails';
+  environment?: Maybe<Scalars['String']['output']>;
+  locale?: Maybe<Scalars['String']['output']>;
+  time?: Maybe<Scalars['DateTime']['output']>;
+  user?: Maybe<Scalars['String']['output']>;
+  variants?: Maybe<Array<Maybe<SysVariants>>>;
 };
 
 export type SystemPublishDetailsWhere = {

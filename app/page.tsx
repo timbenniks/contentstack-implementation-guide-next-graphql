@@ -52,8 +52,8 @@ export default function Home() {
         {page?.imageConnection ? (
           <Image
             className="mb-4"
-            width={300}
-            height={300}
+            width={640}
+            height={360}
             src={page?.imageConnection?.edges[0].node.url}
             alt={page?.imageConnection?.edges[0].node.title}
             {...(page?.imageConnection?.edges[0].node.$ &&
