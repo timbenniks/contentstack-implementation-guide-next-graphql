@@ -87,6 +87,24 @@ export async function getPage(url: string) {
               }
             }
           }
+          blocks {
+            ... on PageBlocksBlock {
+              __typename
+              block {
+                copy
+                imageConnection {
+                  edges {
+                    node {
+                      url
+                      title
+                    }
+                  }
+                }
+                layout
+                title
+              }
+            }
+          }
         }
       }
     }

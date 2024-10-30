@@ -32,6 +32,14 @@ export type AllSysAsset = {
   total?: Maybe<Scalars['Int']['output']>;
 };
 
+export type Block = {
+  __typename?: 'Block';
+  copy?: Maybe<Scalars['String']['output']>;
+  imageConnection?: Maybe<SysAssetConnection>;
+  layout?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+};
+
 export type EntrySystemField = {
   __typename?: 'EntrySystemField';
   branch?: Maybe<Scalars['String']['output']>;
@@ -56,12 +64,45 @@ export type EntrySystemFieldExtensionConnectionArgs = {
 
 export type Page = {
   __typename?: 'Page';
+  blocks?: Maybe<Array<Maybe<PageBlocks>>>;
   description?: Maybe<Scalars['String']['output']>;
   imageConnection?: Maybe<SysAssetConnection>;
   rich_text?: Maybe<Scalars['String']['output']>;
   system?: Maybe<EntrySystemField>;
   title?: Maybe<Scalars['String']['output']>;
   url?: Maybe<Scalars['String']['output']>;
+};
+
+export type PageBlocks = PageBlocksBlock;
+
+export type PageBlocksBlock = {
+  __typename?: 'PageBlocksBlock';
+  block?: Maybe<Block>;
+};
+
+export type PageBlocksBlockWhere = {
+  copy?: InputMaybe<Scalars['String']['input']>;
+  copy_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  copy_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  copy_ne?: InputMaybe<Scalars['String']['input']>;
+  copy_nin?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  image?: InputMaybe<SysAssetWhere>;
+  image_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  layout?: InputMaybe<Scalars['String']['input']>;
+  layout_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  layout_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  layout_ne?: InputMaybe<Scalars['String']['input']>;
+  layout_nin?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  title_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  title_ne?: InputMaybe<Scalars['String']['input']>;
+  title_nin?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type PageBlocksWhere = {
+  block?: InputMaybe<PageBlocksBlockWhere>;
+  block_exists?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export enum PageOrderBy {
@@ -74,6 +115,8 @@ export enum PageOrderBy {
 export type PageWhere = {
   AND?: InputMaybe<Array<InputMaybe<PageWhere>>>;
   OR?: InputMaybe<Array<InputMaybe<PageWhere>>>;
+  blocks?: InputMaybe<PageBlocksWhere>;
+  blocks_exists?: InputMaybe<Scalars['Boolean']['input']>;
   created_at?: InputMaybe<Scalars['DateTime']['input']>;
   created_at_gt?: InputMaybe<Scalars['DateTime']['input']>;
   created_at_gte?: InputMaybe<Scalars['DateTime']['input']>;
@@ -504,7 +547,7 @@ export type PageQueryVariables = Exact<{
 }>;
 
 
-export type PageQuery = { __typename?: 'Query', all_page?: { __typename?: 'AllPage', items?: Array<{ __typename?: 'Page', description?: string | null, rich_text?: string | null, title?: string | null, url?: string | null, system?: { __typename?: 'EntrySystemField', uid?: string | null, content_type_uid?: string | null } | null, imageConnection?: { __typename?: 'SysAssetConnection', edges?: Array<{ __typename?: 'SysAssetEdge', node?: { __typename?: 'SysAsset', url?: string | null, title?: string | null } | null } | null> | null } | null } | null> | null } | null };
+export type PageQuery = { __typename?: 'Query', all_page?: { __typename?: 'AllPage', items?: Array<{ __typename?: 'Page', description?: string | null, rich_text?: string | null, title?: string | null, url?: string | null, system?: { __typename?: 'EntrySystemField', uid?: string | null, content_type_uid?: string | null } | null, imageConnection?: { __typename?: 'SysAssetConnection', edges?: Array<{ __typename?: 'SysAssetEdge', node?: { __typename?: 'SysAsset', url?: string | null, title?: string | null } | null } | null> | null } | null, blocks?: Array<{ __typename: 'PageBlocksBlock', block?: { __typename?: 'Block', copy?: string | null, layout?: string | null, title?: string | null, imageConnection?: { __typename?: 'SysAssetConnection', edges?: Array<{ __typename?: 'SysAssetEdge', node?: { __typename?: 'SysAsset', url?: string | null, title?: string | null } | null } | null> | null } | null } | null } | null> | null } | null> | null } | null };
 
 
-export const PageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Page"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"url"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"all_page"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"url"},"value":{"kind":"Variable","name":{"kind":"Name","value":"url"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"system"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"uid"}},{"kind":"Field","name":{"kind":"Name","value":"content_type_uid"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"rich_text"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"imageConnection"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<PageQuery, PageQueryVariables>;
+export const PageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Page"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"url"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"all_page"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"url"},"value":{"kind":"Variable","name":{"kind":"Name","value":"url"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"system"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"uid"}},{"kind":"Field","name":{"kind":"Name","value":"content_type_uid"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"rich_text"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"imageConnection"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"blocks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PageBlocksBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"block"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"copy"}},{"kind":"Field","name":{"kind":"Name","value":"imageConnection"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"layout"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<PageQuery, PageQueryVariables>;

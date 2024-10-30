@@ -25,6 +25,21 @@ export interface File {
   $: any;
 }
 
+export interface Block {
+  _version?: number;
+  _metadata: any;
+  $: any;
+  title?: string;
+  imageConnection?: any;
+  copy?: string;
+  image?: File | null;
+  layout?: ("image_left" | "image_right") | null;
+}
+
+export interface Blocks {
+  block: Block;
+}
+
 export interface Page {
   uid: string;
   _content_type_uid: string;
@@ -35,6 +50,7 @@ export interface Page {
   description?: string;
   imageConnection?: any;
   rich_text?: string;
+  blocks?: Blocks[];
 }
 
 export type GraphQLHeaders = {
