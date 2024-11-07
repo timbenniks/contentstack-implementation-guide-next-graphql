@@ -2,17 +2,11 @@
 
 import Image from "next/image";
 import ContentstackLivePreview from "@contentstack/live-preview-utils";
-import { getPage } from "@/lib/contentstack";
+import { getPage, initLivePreview } from "@/lib/contentstack";
 import { useEffect, useState } from "react";
 import { Page } from "@/lib/types";
-import { useSearchParams } from "next/navigation";
 
 export default function Home() {
-  const searchParams = useSearchParams();
-  const live_preview = searchParams.get("live_preview") || false;
-  const content_type_uid = searchParams.get("content_type_uid") || "";
-  const entry_uid = searchParams.get("entry_uid") || "";
-
   const [page, setPage] = useState<Page>();
 
   const getContent = async () => {
@@ -21,13 +15,7 @@ export default function Home() {
   };
 
   useEffect(() => {
-    live_preview &&
-      ContentstackLivePreview.setConfigFromParams({
-        live_preview,
-        content_type_uid,
-        entry_uid,
-      });
-
+    initLivePreview();
     ContentstackLivePreview.onEntryChange(getContent);
   }, []);
 
@@ -68,7 +56,10 @@ export default function Home() {
           />
         ) : null}
 
-        <div className="space-y-8 max-w-screen-sm mt-4">
+        <div
+          className="space-y-8 max-w-screen-sm mt-4"
+          {...(page?.$ && page?.$.blocks)}
+        >
           {page?.blocks?.map((item, index) => {
             const { block } = item;
             const isImageLeft = block.layout === "image_left";
