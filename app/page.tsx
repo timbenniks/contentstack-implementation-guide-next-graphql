@@ -20,7 +20,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="max-w-screen-2xl mx-auto">
+    <main className="max-w-screen-md mx-auto">
       <section className="p-4">
         {page?.title ? (
           <h1
@@ -38,6 +38,8 @@ export default function Home() {
         ) : null}
 
         {page?.imageConnection ? (
+          // The CSLP tag for this imageConnection does not work in live preview.
+          // Fix TBD.
           <Image
             className="mb-4"
             width={640}
@@ -68,12 +70,14 @@ export default function Home() {
               <div
                 key={`${block}-${index}`}
                 {...(page?.$ && page?.$[`blocks__${index}`])}
-                className={`flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4 ${
+                className={`flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4 bg-slate-100 ${
                   isImageLeft ? "md:flex-row" : "md:flex-row-reverse"
                 }`}
               >
                 <div className="w-full md:w-1/2">
                   {block.imageConnection ? (
+                    // The CSLP tag for this imageConnection does not work in live preview.
+                    // Fix TBD.
                     <Image
                       src={block.imageConnection.edges[0].node.url}
                       alt={block.imageConnection.edges[0].node.title}
