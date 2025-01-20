@@ -48,6 +48,7 @@ export interface Page {
   title: string;
   url?: string;
   description?: string;
+  image?: any;
   imageConnection?: any;
   rich_text?: string;
   blocks?: Blocks[];

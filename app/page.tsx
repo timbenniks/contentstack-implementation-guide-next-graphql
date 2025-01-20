@@ -37,17 +37,14 @@ export default function Home() {
           </p>
         ) : null}
 
-        {page?.imageConnection ? (
-          // The CSLP tag for this imageConnection does not work in live preview.
-          // Fix TBD.
+        {page?.image ? (
           <Image
             className="mb-4"
             width={640}
             height={360}
-            src={page?.imageConnection?.edges[0].node.url}
-            alt={page?.imageConnection?.edges[0].node.title}
-            {...(page?.imageConnection?.edges[0].node.$ &&
-              page?.imageConnection?.edges[0].node.$.url)}
+            src={page?.image.url}
+            alt={page?.image.title}
+            {...(page?.image.$ && page?.image.$.url)}
           />
         ) : null}
 
@@ -75,17 +72,14 @@ export default function Home() {
                 }`}
               >
                 <div className="w-full md:w-1/2">
-                  {block.imageConnection ? (
-                    // The CSLP tag for this imageConnection does not work in live preview.
-                    // Fix TBD.
+                  {block.image ? (
                     <Image
-                      src={block.imageConnection.edges[0].node.url}
-                      alt={block.imageConnection.edges[0].node.title}
+                      src={block.image.url}
+                      alt={block.image.title}
                       width={200}
                       height={112}
                       className="w-full"
-                      {...(block?.imageConnection?.edges[0].node.$ &&
-                        block?.imageConnection?.edges[0].node.$.url)}
+                      {...(block?.image.$ && block?.image.$.url)}
                     />
                   ) : null}
                 </div>

@@ -121,8 +121,17 @@ export async function getPage(url: string) {
   );
 
   // needed for editable tags
+  const fullPage = res?.all_page?.items && res?.all_page?.items[0]
   const fixedEntryForEditableTags = res?.all_page?.items && {
-    ...res?.all_page?.items[0],
+    ...fullPage,
+    image: fullPage?.imageConnection?.edges && fullPage?.imageConnection?.edges[0]?.node,
+    blocks: fullPage?.blocks && fullPage?.blocks.map(block => ({
+      ...block,
+      block: {
+        ...block?.block,
+        image: block?.block && block?.block.imageConnection?.edges?.[0]?.node || null
+      }
+    })),
     uid: res?.all_page?.items[0]?.system?.uid,
     _content_type_uid: res?.all_page?.items[0]?.system?.content_type_uid
   }
