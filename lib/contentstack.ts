@@ -1,18 +1,22 @@
-import contentstack, { Region } from "@contentstack/delivery-sdk"
+import contentstack from "@contentstack/delivery-sdk"
 import ContentstackLivePreview, { IStackSdk } from "@contentstack/live-preview-utils";
 import { GraphQLHeaders, Page } from "./types";
 import { GraphQLClient } from "graphql-request";
 import { graphql } from "../gql"
+import { getContentstackEndpoints, getRegionForString } from "@timbenniks/contentstack-endpoints";
+
+const region = getRegionForString(process.env.NEXT_PUBLIC_CONTENTSTACK_REGION as string)
+const endpoints = getContentstackEndpoints(region, true)
 
 export const stack = contentstack.stack({
   apiKey: process.env.NEXT_PUBLIC_CONTENTSTACK_API_KEY as string,
   deliveryToken: process.env.NEXT_PUBLIC_CONTENTSTACK_DELIVERY_TOKEN as string,
   environment: process.env.NEXT_PUBLIC_CONTENTSTACK_ENVIRONMENT as string,
-  region: process.env.NEXT_PUBLIC_CONTENTSTACK_REGION === 'EU' ? Region.EU : Region.US,
+  region: region,
   live_preview: {
     enable: process.env.NEXT_PUBLIC_CONTENTSTACK_PREVIEW === 'true',
     preview_token: process.env.NEXT_PUBLIC_CONTENTSTACK_PREVIEW_TOKEN,
-    host: process.env.NEXT_PUBLIC_CONTENTSTACK_REGION === 'EU' ? "eu-graphql-preview.contentstack.com" : "graphql-preview.contentstack.com",
+    host: endpoints.preview,
   }
 });
 
@@ -27,13 +31,11 @@ export function initLivePreview() {
       environment: process.env.NEXT_PUBLIC_CONTENTSTACK_ENVIRONMENT as string,
     },
     clientUrlParams: {
-      host:
-        process.env.NEXT_PUBLIC_CONTENTSTACK_REGION === "EU"
-          ? "eu-app.contentstack.com"
-          : "app.contentstack.com",
+      host: endpoints.application
     },
     editButton: {
       enable: true,
+      exclude: ["outsideLivePreviewPortal"]
     },
   });
 }
@@ -41,17 +43,11 @@ export function initLivePreview() {
 export async function getPage(url: string) {
   const apiKey = process.env.NEXT_PUBLIC_CONTENTSTACK_API_KEY;
   const environment = process.env.NEXT_PUBLIC_CONTENTSTACK_ENVIRONMENT;
-  const region = process.env.NEXT_PUBLIC_CONTENTSTACK_REGION;
   const accessToken = process.env.NEXT_PUBLIC_CONTENTSTACK_DELIVERY_TOKEN as string;
   const preview = process.env.NEXT_PUBLIC_CONTENTSTACK_PREVIEW;
   const previewToken = process.env.NEXT_PUBLIC_CONTENTSTACK_PREVIEW_TOKEN as string;
   const hash = ContentstackLivePreview.hash;
-
-  let baseURL = region === 'EU' ? 'eu-graphql.contentstack.com' : 'graphql.contentstack.com'
-
-  if (preview === 'true' && hash) {
-    baseURL = region === 'EU' ? 'eu-graphql-preview.contentstack.com' : 'graphql-preview.contentstack.com'
-  }
+  const baseURL = preview === 'true' && hash ? endpoints.graphqlPreview : endpoints.graphql
 
   const headers: GraphQLHeaders = {
     access_token: accessToken
@@ -63,7 +59,6 @@ export async function getPage(url: string) {
   }
 
   const gqEndpoint = `https://${baseURL}/stacks/${apiKey}?environment=${environment}`;
-
   const graphQLClient = new GraphQLClient(gqEndpoint, {
     headers
   })

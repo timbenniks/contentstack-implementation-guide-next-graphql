@@ -236,6 +236,7 @@ export type SysAsset = {
   file_size?: Maybe<Scalars['Int']['output']>;
   filename?: Maybe<Scalars['String']['output']>;
   metadata?: Maybe<Scalars['JSON']['output']>;
+  parent_uid?: Maybe<Scalars['String']['output']>;
   permanent_url?: Maybe<Scalars['String']['output']>;
   system?: Maybe<SysAssetSystemField>;
   title?: Maybe<Scalars['String']['output']>;
@@ -460,6 +461,11 @@ export type SysAssetWhere = {
   filename_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   filename_ne?: InputMaybe<Scalars['String']['input']>;
   filename_nin?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  parent_uid?: InputMaybe<Scalars['String']['input']>;
+  parent_uid_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  parent_uid_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  parent_uid_ne?: InputMaybe<Scalars['String']['input']>;
+  parent_uid_nin?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   tags?: InputMaybe<Scalars['String']['input']>;
   tags_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   tags_nin?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -507,6 +513,7 @@ export type SysMetadata = {
 
 export type SysVariants = {
   __typename?: 'SysVariants';
+  alias?: Maybe<Scalars['String']['output']>;
   environment?: Maybe<Scalars['String']['output']>;
   locale?: Maybe<Scalars['String']['output']>;
   time?: Maybe<Scalars['DateTime']['output']>;

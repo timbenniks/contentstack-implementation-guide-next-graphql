@@ -13,7 +13,10 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
-const documents = {
+type Documents = {
+    "\n    query Page($url: String!) {\n      all_page(where: {url: $url}) {\n        items {\n          system {\n            uid\n            content_type_uid\n          }\n          description\n          rich_text\n          title\n          url\n          imageConnection {\n            edges {\n              node {\n                url\n                title\n              }\n            }\n          }\n          blocks {\n            ... on PageBlocksBlock {\n              __typename\n              block {\n                copy\n                imageConnection {\n                  edges {\n                    node {\n                      url\n                      title\n                    }\n                  }\n                }\n                layout\n                title\n              }\n            }\n          }\n        }\n      }\n    }\n  ": typeof types.PageDocument,
+};
+const documents: Documents = {
     "\n    query Page($url: String!) {\n      all_page(where: {url: $url}) {\n        items {\n          system {\n            uid\n            content_type_uid\n          }\n          description\n          rich_text\n          title\n          url\n          imageConnection {\n            edges {\n              node {\n                url\n                title\n              }\n            }\n          }\n          blocks {\n            ... on PageBlocksBlock {\n              __typename\n              block {\n                copy\n                imageConnection {\n                  edges {\n                    node {\n                      url\n                      title\n                    }\n                  }\n                }\n                layout\n                title\n              }\n            }\n          }\n        }\n      }\n    }\n  ": types.PageDocument,
 };
 
