@@ -20,7 +20,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="max-w-screen-md mx-auto">
+    <main className="max-w-(--breakpoint-md) mx-auto">
       <section className="p-4">
         {page?.title ? (
           <h1
@@ -40,8 +40,8 @@ export default function Home() {
         {page?.image ? (
           <Image
             className="mb-4"
-            width={640}
-            height={360}
+            width={768}
+            height={414}
             src={page?.image.url}
             alt={page?.image.title}
             {...(page?.image.$ && page?.image.$.url)}
@@ -56,7 +56,7 @@ export default function Home() {
         ) : null}
 
         <div
-          className="space-y-8 max-w-screen-sm mt-4"
+          className="space-y-8 max-w-full mt-4"
           {...(page?.$ && page?.$.blocks)}
         >
           {page?.blocks?.map((item, index) => {
@@ -66,9 +66,9 @@ export default function Home() {
             return (
               <div
                 key={`${block}-${index}`}
-                {...(page?.$ && page?.$[`blocks__${index}`])}
-                className={`flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4 bg-slate-100 ${
-                  isImageLeft ? "md:flex-row" : "md:flex-row-reverse"
+                {...(page?.$ && page?.$[`blocks__${index}`])} // Adding editable tags if available
+                className={`flex flex-col md:flex-row items-center space-y-4 md:space-y-0 bg-white ${
+                  isImageLeft ? "md:flex-row" : "md:flex-row-reverse" // Adjusting the layout based on the block's layout property
                 }`}
               >
                 <div className="w-full md:w-1/2">
@@ -83,7 +83,7 @@ export default function Home() {
                     />
                   ) : null}
                 </div>
-                <div className="w-full md:w-1/2">
+                <div className="w-full md:w-1/2 p-4">
                   {block.title ? (
                     <h2
                       className="text-2xl font-bold"
